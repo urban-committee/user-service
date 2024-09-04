@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: blogsite-user-service
@@ -20,7 +19,7 @@ spring:
       connection-timeout: 30000
   jpa:
     hibernate:
-      ddl-auto: create-drop  # Add the appropriate value here
+      ddl-auto: update  # Add the appropriate value here
     show-sql: true
     properties:
       hibernate:
