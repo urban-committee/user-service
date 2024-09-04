@@ -6,6 +6,8 @@ import com.blogs.userservice.entity.Role;
 import com.blogs.userservice.enums.RoleEnum;
 import com.blogs.userservice.repository.BlogUserRepository;
 import com.blogs.userservice.repository.RoleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,7 @@ import java.util.Set;
 
 @Service
 public class RoleService {
+    private static final Logger logger = LoggerFactory.getLogger(RoleService.class);
 
     private final BlogUserRepository blogUserRepository;
     private final RoleRepository roleRepository;

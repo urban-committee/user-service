@@ -21,6 +21,8 @@ public class BlogUser {
     private String username;
     private String email;
     private String password;
+    private boolean isTwoFactorEnabled;
+    private String secret;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

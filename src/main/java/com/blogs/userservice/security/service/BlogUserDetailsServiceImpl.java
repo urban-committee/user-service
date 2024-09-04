@@ -4,6 +4,8 @@ package com.blogs.userservice.security.service;
 import com.blogs.userservice.repository.BlogUserRepository;
 import com.blogs.userservice.entity.BlogUser;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BlogUserDetailsServiceImpl implements UserDetailsService {
+    private static final Logger logger = LoggerFactory.getLogger(BlogUserDetailsServiceImpl.class);
+
     @Autowired
     BlogUserRepository userRepository;
 

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,19 +38,32 @@ public class SecurityConfig {
         return new BlogUserDetailsServiceImpl();
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth
+//                       .requestMatchers("/").permitAll()
+////                        /* .requestMatchers("/login", "/register", "/2fa", "/2fa-verify").permitAll()
+////                        .requestMatchers("/api/auth/**","/api/auth/register" ,"/2fa", "/2fa-verify") */
+//                        .anyRequest().authenticated());
+//
+//
+//        return http.build();
+
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorizeRequests ->
                                 authorizeRequests
-                                        .requestMatchers("/api/authentication/greeting").authenticated()
+                                        .requestMatchers("/api/v1.0/blogsite/user/authentication/signin","/api/v1.0/blogsite/user/register","/api/v1.0/blogsite/user/2fa-verify","/api/v1.0/blogsite/user/2fa-enable").permitAll()
+                                        .requestMatchers("/api/authentication/signin").authenticated()
                                         .requestMatchers("/api/authentication/signin").permitAll()
-                        //.requestMatchers("/api/authentication/greeting").authenticated()
-
+                                        .requestMatchers("/api/authentication/signin").hasRole("USER")
+                                        .anyRequest().denyAll()
                 )
-                .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement(sessionManagement ->  sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -74,4 +88,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
+
 }

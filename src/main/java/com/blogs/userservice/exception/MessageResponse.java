@@ -1,17 +1,15 @@
 package com.blogs.userservice.exception;
 
+import lombok.Data;
+
+@Data
 public class MessageResponse {
     private String message;
+    private String qrcode;
 
-    public MessageResponse(String message) {
+    public MessageResponse(String message, String qrCode) {
         this.message = message;
+        this.qrcode = qrCode;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

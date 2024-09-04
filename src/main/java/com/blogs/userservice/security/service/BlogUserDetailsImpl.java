@@ -1,7 +1,10 @@
 package com.blogs.userservice.security.service;
 
 import com.blogs.userservice.entity.BlogUser;
+import com.blogs.userservice.exception.GlobalExceptionHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class BlogUserDetailsImpl implements UserDetails {
+    private static final Logger logger = LoggerFactory.getLogger(BlogUserDetailsImpl.class);
 
     private static final long serialVersionUID = 1L;
 

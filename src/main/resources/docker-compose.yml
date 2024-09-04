@@ -1,0 +1,10 @@
+#services:
+#  blogsite-user-service:
+#    image: blogsite-user-service:latest
+#    build:
+#      context: ../../../ # Adjust this path to where your root project directory is
+#      dockerfile: Dockerfile # Adjust the Dockerfile path accordingly
+#    ports:
+#      - "8082:8082"
+#
+#
