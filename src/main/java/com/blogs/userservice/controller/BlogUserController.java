@@ -78,4 +78,10 @@ public class BlogUserController {
         return blogUserRegistrationService.findAll();
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> deleteBlog(@PathVariable Long id) {
+        Boolean updated = blogUserRegistrationService.deleteBlogUser(id);
+        return ResponseEntity.ok(updated);
+    }
+
 }

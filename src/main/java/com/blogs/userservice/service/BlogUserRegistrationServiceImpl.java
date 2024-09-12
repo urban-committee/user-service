@@ -1,6 +1,7 @@
 package com.blogs.userservice.service;
 
 import com.blogs.userservice.entity.BlogUser;
+import com.blogs.userservice.exception.UserNotFoundException;
 import com.blogs.userservice.repository.BlogUserRepository;
 import com.blogs.userservice.security.service.GoogleAuthUtil;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ public class BlogUserRegistrationServiceImpl implements BlogUserRegistrationServ
 
     @Override
     public BlogUser findById(Long id) {
+        logger.info("ID -{}",id);
         return blogUserRepository.findById(id).get();
     }
 
@@ -42,6 +44,17 @@ public class BlogUserRegistrationServiceImpl implements BlogUserRegistrationServ
     @Override
     public List<BlogUser> findAll() {
         return blogUserRepository.findAll();
+    }
+
+    @Override
+    public Boolean deleteBlogUser(Long id) {
+        if (blogUserRepository.existsById(id)) {
+            blogUserRepository.deleteById(id);
+        } else {
+            throw new UserNotFoundException("Blog not found with id " + id);
+        }
+        //return postRepository.existsById(id);
+        return true;
     }
 
 

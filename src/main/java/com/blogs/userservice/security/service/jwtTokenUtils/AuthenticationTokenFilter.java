@@ -48,8 +48,10 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter{
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
+                logger.error("Before user load{} ",username);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                logger.error("After load user{]",username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

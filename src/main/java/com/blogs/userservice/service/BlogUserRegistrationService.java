@@ -14,4 +14,5 @@ public interface BlogUserRegistrationService {
 
     Boolean existsByEmail(String email);
     List<BlogUser> findAll();
+    Boolean deleteBlogUser(Long id);
 }

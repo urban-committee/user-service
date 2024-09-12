@@ -59,8 +59,9 @@ public class SecurityConfig {
                                 authorizeRequests
                                         .requestMatchers("/api/v1.0/blogsite/user/authentication/signin","/api/v1.0/blogsite/user/register","/api/v1.0/blogsite/user/2fa-verify","/api/v1.0/blogsite/user/2fa-enable").permitAll()
                                         .requestMatchers("/api/authentication/signin").authenticated()
-                                        .requestMatchers("/api/authentication/signin").permitAll()
-                                        .requestMatchers("/api/authentication/signin").hasRole("USER")
+                                        .requestMatchers("/api/v1.0/blogsite/user/**").hasAnyRole("USER","ADMIN")
+
+                                        //.requestMatchers("/api/authentication/signin").hasRole("USER")
                                         .anyRequest().denyAll()
                 )
                 .sessionManagement(sessionManagement ->  sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

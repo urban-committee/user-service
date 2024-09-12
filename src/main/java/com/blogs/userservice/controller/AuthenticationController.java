@@ -71,7 +71,7 @@ public class AuthenticationController {
 
     @PostMapping("/authentication/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+        logger.info("Login process started........");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -80,8 +80,8 @@ public class AuthenticationController {
 
         BlogUserDetailsImpl userDetails = (BlogUserDetailsImpl) authentication.getPrincipal();
         BlogUser user = userRepository.findByEmail(userDetails.getEmail()).orElseThrow();
-        boolean enabled2FA =user.isTwoFactorEnabled();
-
+        boolean enabled2FA = user.isTwoFactorEnabled();
+        logger.info("enabled2FA {}", enabled2FA);
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
@@ -124,7 +124,7 @@ public class AuthenticationController {
     @PostMapping("/2fa-enable")
     public ResponseEntity<String> enable2FA(@RequestBody TwoFactorRequest request) {
         BlogUser user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        System.out.println(user.getEmail()+","+user.getSecret());
+        System.out.println(user.getEmail() + "," + user.getSecret());
         boolean isCodeValid = twoFactorAuthService.verifyTOTP(user.getSecret(), request.getCode());
         if (isCodeValid) {
             return ResponseEntity.ok("Enable 2FA successful");

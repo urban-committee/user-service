@@ -22,9 +22,9 @@ public class BlogUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        BlogUser user = userRepository.findByEmail(email)//userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + email));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        BlogUser user = userRepository.findByEmail(username)//userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         return BlogUserDetailsImpl.build(user);
     }

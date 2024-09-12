@@ -1,6 +1,8 @@
 spring:
   application:
     name: blogsite-user-service
+logging:
+
 
   zipkin:
     enabled: true
